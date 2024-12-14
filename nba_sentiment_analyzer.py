@@ -17,9 +17,11 @@ class NBAArticleAnalyzer:
         all_players = players.get_active_players()
         return [player['full_name'] for player in all_players]
     
-    def fetch_articles(self, days_back=30):
+    def fetch_articles(self, days_back=28):
         end_date = datetime.now()
         start_date = end_date - timedelta(days=days_back)
+        
+        print(f"Fetching articles from {start_date.strftime('%Y-%m-%d')} to {end_date.strftime('%Y-%m-%d')}")
         
         articles = []
         sources = ('espn,bleacher-report,fox-sports,sports-illustrated,'
