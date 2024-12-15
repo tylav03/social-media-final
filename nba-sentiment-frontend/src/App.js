@@ -120,11 +120,12 @@ function App() {
                   <p className="error-message">{errors[player]}</p>
                 ) : playerStats[player] ? (
                   <div className="stats-content">
-                    <p>Points: {playerStats[player].pts}</p>
-                    <p>Rebounds: {playerStats[player].reb}</p>
-                    <p>Assists: {playerStats[player].ast}</p>
-                    <p>Plus/Minus: {playerStats[player].plus_minus}</p>
-                    <p>Date: {playerStats[player].date}</p>
+                    <p>Games Played: {playerStats[player].games_played}</p>
+                    <p>PPG: {playerStats[player].avg_pts}</p>
+                    <p>RPG: {playerStats[player].avg_reb}</p>
+                    <p>APG: {playerStats[player].avg_ast}</p>
+                    <p>+/- per game: {playerStats[player].avg_plus_minus}</p>
+                    <p className="stats-period">Last 30 days average</p>
                   </div>
                 ) : (
                   <p>Loading stats...</p>

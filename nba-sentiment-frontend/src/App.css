@@ -61,6 +61,7 @@
   border-radius: 8px;
   padding: 20px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  min-height: 200px;
 }
 
 .player-card h3 {
@@ -77,4 +78,17 @@
 .stats-content p {
   margin: 0;
   color: #666;
+}
+
+.error-message {
+  color: #dc3545;
+  font-size: 0.9em;
+  margin: 10px 0;
+}
+
+.stats-period {
+  font-style: italic;
+  font-size: 0.8em;
+  color: #888;
+  margin-top: 10px !important;
 }
