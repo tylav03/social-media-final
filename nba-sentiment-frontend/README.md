@@ -1,70 +1,100 @@
-# Getting Started with Create React App
+# NBA PlayerSentiment and Valuation Analysis Application
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This application analyzes NBA player sentiment from news articles and compares it with their recent performance statistics. It then assigns a player with a valuation of OVERVALUED, UNDERVALUED, or NEUTRAL.
 
-## Available Scripts
+## Make sure you have these installed:
 
-In the project directory, you can run:
+- Python 3.8 or higher
+- Node.js and npm
+- Git
 
-### `npm start`
+To install:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+1. Clone the repository:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+```bash
+git clone <repository-url>
+cd <repository-name>
+```
 
-### `npm test`
+2. Create and activate a Python virtual environment if you want to:
+```bash
+# On Windows
+python -m venv venv
+.\venv\Scripts\activate
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+# On Mac/Linux
+python3 -m venv venv
+source venv/bin/activate
+```
 
-### `npm run build`
+3. Install our Python dependencies:
+```bash
+pip install -r requirements.txt
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+4. Install React dependencies:
+```bash
+cd nba-sentiment-frontend
+npm install
+cd ..
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Running the Application
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Option 1: Using the start script (Only works on mac and linux we think)
 
-### `npm run eject`
+1. Make the start script executable:
+```bash
+chmod +x start_app.sh
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+2. Run the start script:
+```bash
+./start_app.sh
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Option 2: Manual startup
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+1. Start the Flask backend (from the root directory):
+```bash
+python app.py
+```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+2. In a new terminal, start the React frontend:
+```bash
+cd nba-sentiment-frontend
+npm start
+```
 
-## Learn More
+## Accessing the Application
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- The frontend will be running on: http://localhost:3000
+- The backend API will be running on: http://localhost:5001
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Features
 
-### Code Splitting
+- Real-time sentiment analysis of NBA players from news articles
+- Player performance statistics from the last 30 days
+- Visual representation of sentiment scores
+- Player valuation analysis (OVERVALUED/UNDERVALUED/NEUTRAL) based on sentiment and performance metrics
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## Problems we ran into
 
-### Analyzing the Bundle Size
+1. If player stats aren't loading:
+   - The NBA API has rate limits. The code has retry logic, but you might need to wait a few between requests
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+2. If the frontend fails to start:
+   - Make sure all npm dependencies are installed
+   - Check if port 3000 is available on your computer
 
-### Making a Progressive Web App
+3. If the backend fails to start:
+   - Make sure port 5001 is available on your computer
+   - Look and see if all Python libraries are installed correctly
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## Stopping the Application
 
-### Advanced Configuration
+- If using the start script: Press Ctrl+C in the terminal running the script
+- If running manually: Press Ctrl+C in both terminal windows
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
 
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
