@@ -46,3 +46,35 @@
 .chart-container .recharts-wrapper .recharts-surface text {
   white-space: nowrap;
 }
+
+.player-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.player-card {
+  background-color: #f5f5f5;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.player-card h3 {
+  margin-top: 0;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.stats-content {
+  display: grid;
+  gap: 10px;
+}
+
+.stats-content p {
+  margin: 0;
+  color: #666;
+}
