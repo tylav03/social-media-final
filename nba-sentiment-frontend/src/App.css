@@ -92,3 +92,25 @@
   color: #888;
   margin-top: 10px !important;
 }
+
+.valuation-text {
+  font-weight: bold;
+  margin-top: 15px !important;
+  padding: 5px;
+  border-radius: 4px;
+}
+
+.overvalued {
+  color: #dc3545;
+  background-color: rgba(220, 53, 69, 0.1);
+}
+
+.undervalued {
+  color: #28a745;
+  background-color: rgba(40, 167, 69, 0.1);
+}
+
+.neutral {
+  color: #6c757d;
+  background-color: rgba(108, 117, 125, 0.1);
+}

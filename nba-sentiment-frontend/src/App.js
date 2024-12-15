@@ -83,6 +83,36 @@ function App() {
     );
   };
 
+  const calculateValuation = (sentiment, stats) => {
+    if (!stats) return null;
+
+    // Convert sentiment to a -100 to 100 scale for easier comparison
+    const sentimentScore = parseFloat(sentiment) * 100;
+    
+    // Create a performance score based on stats
+    // This formula can be adjusted based on what you consider most important
+    const performanceScore = (
+      (stats.avg_plus_minus * 10) + // Weighted more as it's a good overall impact metric
+      (stats.avg_pts * 0.5) +
+      (stats.avg_reb * 0.5) +
+      (stats.avg_ast * 0.5)
+    );
+
+    // Calculate the difference between sentiment and performance
+    const difference = sentimentScore - performanceScore;
+
+    // Thresholds for classification
+    const threshold = 15; // Adjust this value to make classifications more or less sensitive
+
+    if (difference > threshold) {
+      return "OVERVALUED";
+    } else if (difference < -threshold) {
+      return "UNDERVALUED";
+    } else {
+      return "NEUTRAL";
+    }
+  };
+
   return (
     <div className="App">
       <h1>NBA Sentiment Analysis</h1>
@@ -113,7 +143,7 @@ function App() {
           </div>
           
           <div className="player-stats-grid">
-            {chartData.map(({ player }) => (
+            {chartData.map(({ player, sentiment }) => (
               <div key={player} className="player-card">
                 <h3>{player}</h3>
                 {errors[player] ? (
@@ -126,6 +156,9 @@ function App() {
                     <p>APG: {playerStats[player].avg_ast}</p>
                     <p>+/- per game: {playerStats[player].avg_plus_minus}</p>
                     <p className="stats-period">Last 30 days average</p>
+                    <p className={`valuation-text ${calculateValuation(sentiment, playerStats[player])?.toLowerCase()}`}>
+                      {calculateValuation(sentiment, playerStats[player])}
+                    </p>
                   </div>
                 ) : (
                   <p>Loading stats...</p>
