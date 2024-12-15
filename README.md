@@ -13,8 +13,8 @@ To install:
 1. Clone the repository:
 
 ```bash
-git clone <repository-url>
-cd <repository-name>
+git clone https://github.com/tylav03/social-media-final
+cd social-media-final
 ```
 
 2. Create and activate a Python virtual environment if you want to:
