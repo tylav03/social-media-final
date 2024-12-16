@@ -1,4 +1,5 @@
 # NBA PlayerSentiment and Valuation Analysis Application
+### By: Tyler Lavaway, Declan Wavle, Melvin Escobar-Gonzalez, Jacob Masrouri
 
 This application analyzes NBA player sentiment from news articles and compares it with their recent performance statistics. It then assigns a player with a valuation of OVERVALUED, UNDERVALUED, or NEUTRAL.
 
