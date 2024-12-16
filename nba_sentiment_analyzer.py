@@ -21,6 +21,7 @@ class NBAArticleAnalyzer:
     
     def fetch_articles(self, days_back=28):
         # Calculate date range for article search
+        # We made this 28 days back because any more than that and the API will not work
         end_date = datetime.now()
         start_date = end_date - timedelta(days=days_back)
         
@@ -31,9 +32,7 @@ class NBAArticleAnalyzer:
         sources = ('espn,bleacher-report,fox-sports,sports-illustrated,'
                   'cbs-sports,nbc-sports,the-athletic,talksport,'
                   'espn-cric-info,four-four-two,marca,bbc-sport,'
-                  'goal-com,sporting-news,yahoo-sports,sky-sports,'
-                  'football-italia,sport,as,lequipe,kicker,'
-                  'sports-mole,sportstar,the-score,fansided')
+                  'goal-com,sporting-news,yahoo-sports,sky-sports')
         
         try:
             # Make API request to get NBA articles
@@ -44,7 +43,7 @@ class NBAArticleAnalyzer:
                 to=end_date.strftime('%Y-%m-%d'),
                 language='en',
                 sort_by='publishedAt',
-                page_size=100  # Max articles per request
+                page_size=100  # max articles per request
             )
             
             # If request successful, store article details
@@ -65,7 +64,7 @@ class NBAArticleAnalyzer:
             return []
     
     def analyze_sentiment(self, text):
-        # Analyze if text is positive or negative (-1 to 1 scale)
+        # Analyze if text is positive or negative
         blob = TextBlob(text)
         return blob.sentiment.polarity
     
@@ -135,7 +134,6 @@ if __name__ == "__main__":
         plt.tight_layout()
         plt.show()
 
-    # Print summary statistics
     if not results_df.empty:
         print("\nTotal articles analyzed:", len(results_df))
         print("\nAverage Sentiment by Player:")

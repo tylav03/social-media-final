@@ -8,12 +8,14 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [errors, setErrors] = useState({});
 
+  // fetch sentiment data
   useEffect(() => {
+    // Make API call to backend to get sentiment analysis data
     fetch('http://localhost:5001/api/sentiment')
       .then(response => response.json())
       .then(data => {
-        setData(data);
-        setLoading(false);
+        setData(data); // Update state with sentiment data
+        setLoading(false); // Set loading state to false once data is loaded
       })
       .catch(error => {
         console.error('Error fetching data:', error);
@@ -22,21 +24,25 @@ function App() {
   }, []);
 
   useEffect(() => {
+    // Get array of player names from the sentiment data
     const uniquePlayers = [...new Set(data.map(item => item.player))];
     
-    // Fetch player stats sequentially instead of all at once
+    // Get player stats one at a time (we ovrwhelmed the API so we have to do it slowly)
     const fetchPlayerStats = async () => {
       for (const player of uniquePlayers) {
         try {
+          // Make API request for the player's stats
           const response = await fetch(`http://localhost:5001/api/player-stats/${encodeURIComponent(player)}`);
           const stats = await response.json();
           
           if (response.ok) {
+            // If request successful, add player's stats to state
             setPlayerStats(prev => ({
               ...prev,
               [player]: stats
             }));
           } else {
+            // If request failed, add error message to errors state
             setErrors(prev => ({
               ...prev,
               [player]: stats.message || 'Failed to fetch stats'
@@ -52,12 +58,13 @@ function App() {
       }
     };
 
+    // Only fetch stats if we have sentiment data
     if (data.length > 0) {
       fetchPlayerStats();
     }
   }, [data]);
 
-  // Group data by player and calculate average sentiment
+  // Group data by player and calc avg sentiment
   const groupedData = data.reduce((acc, item) => {
     if (!acc[item.player]) {
       acc[item.player] = { player: item.player, sentiment: 0, count: 0 };
@@ -74,7 +81,7 @@ function App() {
     }))
     .sort((a, b) => b.sentiment - a.sentiment); // Sort by sentiment descending
 
-  // Custom tick component to ensure names are on one line
+  // Custom tick component to ensure names are on one line (they werent fitting and were using line breaks)
   const renderCustomYAxisTick = ({ x, y, payload }) => {
     return (
       <text x={x} y={y} dy={4} textAnchor="end" fill="#666" transform={`rotate(0, ${x}, ${y})`}>
@@ -86,13 +93,12 @@ function App() {
   const calculateValuation = (sentiment, stats) => {
     if (!stats) return null;
 
-    // Convert sentiment to a -100 to 100 scale for easier comparison
+    // Convert sentiment to a -100 to 100 scale for comparison
     const sentimentScore = parseFloat(sentiment) * 100;
     
-    // Create a performance score based on stats
-    // This formula can be adjusted based on what you consider most important
+    // Create performance score based on stats
     const performanceScore = (
-      (stats.avg_plus_minus * 10) + // Weighted more as it's a good overall impact metric
+      (stats.avg_plus_minus * 10) + // Weighted more bc it's a good impact metric
       (stats.avg_pts * 0.5) +
       (stats.avg_reb * 0.5) +
       (stats.avg_ast * 0.5)
@@ -101,8 +107,8 @@ function App() {
     // Calculate the difference between sentiment and performance
     const difference = sentimentScore - performanceScore;
 
-    // Thresholds for classification
-    const threshold = 15; // Adjust this value to make classifications more or less sensitive
+    // Threshold for classification
+    const threshold = 15;
 
     if (difference > threshold) {
       return "OVERVALUED";

@@ -19,7 +19,7 @@ cd social-media-final
 
 2. Create and activate a Python virtual environment if you want to:
 ```bash
-# On Windows
+# On Windows (USE COMMAND PROMPT)
 python -m venv venv
 .\venv\Scripts\activate
 
@@ -57,11 +57,13 @@ chmod +x start_app.sh
 ### Option 2: Manual startup
 
 1. Start the Flask backend (from the root directory):
+NOTE: USE COMMAND PROMPT FOR WINDOWS (NOT POWERSHELL)
 ```bash
 python app.py
 ```
 
 2. In a new terminal, start the React frontend:
+NOTE: USE COMMAND PROMPT FOR WINDOWS (NOT POWERSHELL)
 ```bash
 cd nba-sentiment-frontend
 npm start
